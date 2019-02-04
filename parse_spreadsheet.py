@@ -30,12 +30,13 @@ def createObject(entry):
 	# clean up if necessary ... 
 	entry = re.sub(u"(\u201c|\u201d|\u2019)", "'", entry)
 	obj = {} 
+	print entry
 	pattern = "\*~\*([^a-z]+?)\*~\*([\w\s\W]+?)\*~\*[^a-z]+?\*~\*"
 	matches = re.findall(pattern, entry)
+	print len(matches)
 	for elem in matches: 
 		obj[elem[0]] = elem[1]
-
-	print obj
+	print obj.keys()
 	return obj
 
 
@@ -45,20 +46,32 @@ def main():
 	if os.path.exists(filename):
   		os.remove(filename)
 
+  	# of values 
+  	values = 10
 	print "Running Main ... "
 	
 
 	with open("230_scraping_test_all_categories", "r") as myfile:
   		data = myfile.read().decode("utf-8")
-	pattern = "\n([\w\W\s]+?)\n\n"
+	pattern = "(\*~\*[\w\W\s]+?\*~\*\n\n)"
 	matches = re.findall(pattern, data)
 
 	all_entries = []
 	headers = []
 	for i, entry in enumerate(matches):
+		# print len(entry)
 		obj = createObject(entry)
 		headers = obj.keys()
 		all_entries.append(makeLine(filename, obj))
+
+		if i < 1: 
+		# if len(obj.values()) != values:
+			print "ERROR HERE, LEN IS " + str(len(obj.values()))
+			for key in obj.keys():
+				val = obj[key]
+				print key + ": " + val
+			
+		
 
 	writeTSV(filename, all_entries, headers)
 
