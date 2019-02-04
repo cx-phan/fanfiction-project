@@ -5,19 +5,24 @@ import re
 import csv
 import os
 
-# to implement --- convert into TSV file. 
+# to implement --- convert into TSV file; not working right now. 
 def makeLine(filename, obj):
 	edited_obj = []
 	for value in obj.values():
 		edited_obj.append(value.encode('utf-8'))
 
-	with open(filename, 'w') as tsvfile:
-		writer = csv.writer(tsvfile, delimiter='\t', lineterminator='\n')
-		writer.writerow(['1'] + edited_obj)
-		writer.writerow(['2'] + edited_obj)
-		writer.writerow(['3'] + edited_obj)
+	return edited_obj
+	
 
 	tsvfile.close()
+
+def writeTSV(filename, obj, headers): 
+	headers = ['entry'] + headers
+	with open(filename, 'w') as tsvfile:
+		writer = csv.writer(tsvfile, delimiter='\t', lineterminator='\n')
+		writer.writerow(headers)
+		for i, entry in enumerate(obj): 
+			writer.writerow([i] + entry)
 
 # converts into object/dictionary form
 def createObject(entry): 
@@ -48,12 +53,14 @@ def main():
 	pattern = "\n([\w\W\s]+?)\n\n"
 	matches = re.findall(pattern, data)
 
-
+	all_entries = []
+	headers = []
 	for i, entry in enumerate(matches):
 		obj = createObject(entry)
-		makeLine(filename, obj)
-		if i == 2:
-			break
+		headers = obj.keys()
+		all_entries.append(makeLine(filename, obj))
+
+	writeTSV(filename, all_entries, headers)
 
 
 	
