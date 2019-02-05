@@ -103,7 +103,12 @@ summaryRegex=re.compile(r'<blockquote class="userstuff">(.*?)</blockquote>',re.D
 textRegex = re.compile(r'<div class="userstuff(?: module" role="article)?">(.*?)</div>',re.DOTALL)
 betweenHTMLRegex = re.compile(r'>(.*?)<')
 
-file = open("230_scraping_test_all_categories","a")
+filename = "230_scraping_test_all_categories"
+
+if os.path.exists(filename):
+    os.remove(filename)
+    
+file = open(filename,"a")
 #rating = 0 for g, 1 for t, 2 for m, 3 for e
 url_start = "https://archiveofourown.org/works/search?commit=Search&page="
 url_middle="&utf8=%E2%9C%93&work_search%5Bbookmarks_count%5D=&work_search%5Bcharacter_names%5D=&work_search%5Bcomments_count%5D=&work_search%5Bcomplete%5D=&work_search%5Bcreators%5D=&work_search%5Bcrossover%5D=&work_search%5Bfandom_names%5D=&work_search%5Bfreeform_names%5D=&work_search%5Bhits%5D=&work_search%5Bkudos_count%5D=&work_search%5Blanguage_id%5D=1&work_search%5Bquery%5D=&work_search%5Brating_ids%5D=1"
@@ -111,6 +116,7 @@ url_end = "&work_search%5Brelationship_names%5D=&work_search%5Brevised_at%5D=&wo
 #range = which pages you want to scrape fics from
 #1-2 gets you the 20 most recent fics in a category
 #2-4 gets you the 21st through 60th most recent fics in a category, etc.
+
 for rating in range(4):
     for page in range(1,2):
         url=url_start+str(page)+url_middle+str(rating)+url_end
