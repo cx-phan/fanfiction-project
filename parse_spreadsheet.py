@@ -5,17 +5,15 @@ import re
 import csv
 import os
 
-# to implement --- convert into TSV file; not working right now. 
+# takes dictionary & converts all values into an array to write into a TSV file
 def makeLine(filename, obj):
 	edited_obj = []
 	for value in obj.values():
 		edited_obj.append(value.encode('utf-8'))
 
 	return edited_obj
-	
 
-	tsvfile.close()
-
+# takes the header, all entries and writes into a TSV (filename)
 def writeTSV(filename, obj, headers): 
 	headers = ['entry'] + headers
 	with open(filename, 'w') as tsvfile:
@@ -24,32 +22,25 @@ def writeTSV(filename, obj, headers):
 		for i, entry in enumerate(obj): 
 			writer.writerow([i] + entry)
 
-# converts into object/dictionary form
+# converts into object/dictionary form, from string entry
 def createObject(entry): 
-	# object manipulation for future review, plus features 
 	# clean up if necessary ... 
 	entry = re.sub(u"(\u201c|\u201d|\u2019)", "'", entry)
 	obj = {} 
-	print entry
 	pattern = "\*~\*([^a-z]+?)\*~\*([\w\s\W]+?)\*~\*[^a-z]+?\*~\*"
 	matches = re.findall(pattern, entry)
-	print len(matches)
 	for elem in matches: 
 		obj[elem[0]] = elem[1]
-	print obj.keys()
+	print str(obj['TITLE']) + " now printed."
 	return obj
-
 
 
 def main():
 	filename = "records.tsv"
+	values = 11
+
 	if os.path.exists(filename):
   		os.remove(filename)
-
-  	# of values 
-  	values = 10
-	print "Running Main ... "
-	
 
 	with open("230_scraping_test_all_categories", "r") as myfile:
   		data = myfile.read().decode("utf-8")
@@ -59,20 +50,17 @@ def main():
 	all_entries = []
 	headers = []
 	for i, entry in enumerate(matches):
-		# print len(entry)
 		obj = createObject(entry)
 		headers = obj.keys()
 		all_entries.append(makeLine(filename, obj))
 
-		if i < 1: 
-		# if len(obj.values()) != values:
+		# debugging: check here & remove later
+		if len(obj.values()) != values:
 			print "ERROR HERE, LEN IS " + str(len(obj.values()))
 			for key in obj.keys():
 				val = obj[key]
 				print key + ": " + val
 			
-		
-
 	writeTSV(filename, all_entries, headers)
 
 
