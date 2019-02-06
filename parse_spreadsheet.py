@@ -5,6 +5,11 @@ import re
 import csv
 import os
 
+# placeholder function for any data processing ... 
+def interpretObject(obj, headers): 
+	for i, entry in enumerate(obj):
+		print headers[i] + ": " + entry
+
 # takes dictionary & converts all values into an array to write into a TSV file
 def makeLine(filename, obj):
 	edited_obj = []
