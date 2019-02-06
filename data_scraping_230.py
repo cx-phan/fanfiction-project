@@ -127,7 +127,7 @@ def main():
     #2-4 gets you the 21st through 60th most recent fics in a category, etc.
 
     for rating in range(4):
-        for page in range(1, 2):
+        for page in range(start, end):
             url=url_start+str(page)+url_middle+str(rating)+url_end
             print("currently scraping stories listed here: "+url)
             scrapeURL(url,file)
