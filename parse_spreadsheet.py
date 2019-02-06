@@ -4,6 +4,7 @@ import urllib2
 import re
 import csv
 import os
+import sys
 
 # placeholder function for any data processing ... 
 def interpretObject(obj, headers): 
@@ -36,18 +37,22 @@ def createObject(entry):
 	matches = re.findall(pattern, entry)
 	for elem in matches: 
 		obj[elem[0]] = elem[1]
-	print str(obj['TITLE']) + " now printed."
+
+	print obj['TITLE'] + " now printed."
 	return obj
 
 
 def main():
-	filename = "records.tsv"
 	values = 11
-
+	start = int(sys.argv[1])
+	end = int(sys.argv[2])
+	filename = "./data/records:" + str(start) +"-" + str(end) +".tsv"
+	openfile = "./data/230_scraping_test_all_categories_range:" + str(start) + "-" + str(end)
+    
 	if os.path.exists(filename):
   		os.remove(filename)
 
-	with open("230_scraping_test_all_categories", "r") as myfile:
+	with open(openfile, "r") as myfile:
   		data = myfile.read().decode("utf-8")
 	pattern = "(\*~\*[\w\W\s]+?\*~\*\n\n)"
 	matches = re.findall(pattern, data)
