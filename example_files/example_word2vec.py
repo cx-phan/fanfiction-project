@@ -1,8 +1,6 @@
 # Python program to generate word vectors using Word2Vec 
 # original source: https://www.geeksforgeeks.org/python-word-embedding-using-word2vec/
-# Alice in Wonderland: Project Gutenberg
-
-# this is a experiment playground to work with different methods of text vectorization, etc. 
+# Alice in Wonderland: 
 
 # importing all necessary modules 
 from nltk.tokenize import sent_tokenize, word_tokenize 
@@ -13,6 +11,7 @@ warnings.filterwarnings(action = 'ignore')
 import gensim 
 from gensim.models import Word2Vec 
 
+# Reads 'alice.txt' file 
 sample = open("alice.txt", "r") 
 s = sample.read() 
 
