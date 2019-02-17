@@ -35,15 +35,24 @@ def createObject(entry):
 	obj = {} 
 	pattern = "\*~\*([^a-z]+?)\*~\*([\w\s\W]+?)\*~\*[^a-z]+?\*~\*"
 	matches = re.findall(pattern, entry)
+
+	# added delineation for explicit tag
 	for elem in matches: 
-		obj[elem[0]] = elem[1]
+		if elem[0] == 'TAGS':
+			array = elem[1].split(",")
+			obj['MAIN-TAG'] = array[0]
+			obj[elem[0]] = ','.join(array[1:])
+		else:
+			obj[elem[0]] = elem[1]
 
 	print obj['TITLE'] + " now printed."
 	return obj
 
 
 def main():
-	values = 11
+	print "put in values for first and second argument, 1 ????"
+	
+	values = 12
 	start = int(sys.argv[1])
 	end = int(sys.argv[2])
 	filename = "./data/records:" + str(start) +"-" + str(end) +".tsv"
@@ -54,6 +63,8 @@ def main():
 
 	with open(openfile, "r") as myfile:
   		data = myfile.read().decode("utf-8")
+	
+	# data to parse out all types 
 	pattern = "(\*~\*[\w\W\s]+?\*~\*\n\n)"
 	matches = re.findall(pattern, data)
 
