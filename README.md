@@ -13,5 +13,5 @@ These two variables describe the number of pages you are pulling from. For the f
 python parse_spreadsheet.py [Var1] [Var2]
 These two variables are the same as the ones you inputted above. 
 
-You can access this in the data folder. 
+You can access this in the ./data folder. 
 

@@ -40,7 +40,7 @@ def createObject(entry):
 	for elem in matches: 
 		if elem[0] == 'TAGS':
 			array = elem[1].split(",")
-			obj['MAIN-TAG'] = array[0]
+			obj['MAINTAG'] = array[0]
 			obj[elem[0]] = ','.join(array[1:])
 		else:
 			obj[elem[0]] = elem[1]

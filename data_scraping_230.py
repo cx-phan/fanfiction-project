@@ -26,6 +26,7 @@ betweenHTMLRegex = re.compile(r'>(.*?)<')
 def scrapeURL(url, file):
     response = urllib2.urlopen(url)
     page_source = response.read()
+    print page_source
     lines = page_source.split("\n")
     currentWorkID = 0
     for line in lines:
@@ -109,7 +110,7 @@ def main():
 
     start = int(sys.argv[1])
     end = int(sys.argv[2])
-    print "Range is: (" + str(start) + ", " + str(end) + ")"
+    # print "Range is: (" + str(start) + ", " + str(end) + ")"
     
 
     filename = "./data/230_scraping_test_all_categories_range:" + str(start) + "-" + str(end)
@@ -129,7 +130,7 @@ def main():
     for rating in range(4):
         for page in range(start, end):
             url=url_start+str(page)+url_middle+str(rating)+url_end
-            print("currently scraping stories listed here: "+url)
+            # print("currently scraping stories listed here: "+url)
             scrapeURL(url,file)
 
 if __name__ == "__main__":
