@@ -1,6 +1,6 @@
 # CS 230: Fanfiction Parse
 
-This is an in-progress project for CS 230: Deep Learning. 
+This is an in-progress project for CS 230: Deep Learning. Currently updated for Project Milestone.
 
 # Instructions
 Instructions to run each file 
@@ -18,3 +18,16 @@ You can access both the pre and post-parsed data in the ./data folder.
 3. To run the main file, run:
 *python CS_230_project.py* 
 To run any other file in the data folder (records:X-Y.tsv), change the name of the filename. 
+
+# Important Files 
+*data_scraping_230.py*
+Pulls data from ao3.org.
+
+*parse_spreadsheet.py*
+Parses data into TSV files, tokenizes all features. 
+
+*CS_230_project.py* 
+Runs model. 
+
+*data*
+Folder of relevant data
