@@ -43,7 +43,7 @@ def createObject(entry):
 			obj['MAINTAG'] = array[0]
 			obj[elem[0]] = ','.join(array[1:])
 		else:
-			obj[elem[0]] = elem[1]
+			obj[elem[0]] = elem[1].strip(',')
 
 	print obj['TITLE'] + " now printed."
 	return obj
