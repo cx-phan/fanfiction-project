@@ -45,6 +45,7 @@ def createObject(entry):
 		else:
 			obj[elem[0]] = elem[1].strip()
 
+	print obj
 	print obj['TITLE'] + " now printed."
 	return obj
 
@@ -52,11 +53,11 @@ def createObject(entry):
 def main():
 	print "put in values for first and second argument, 1 ????"
 	
-	values = 12
+	values = 11
 	start = int(sys.argv[1])
 	end = int(sys.argv[2])
 	filename = "./data/records:" + str(start) +"-" + str(end) +".tsv"
-	openfile = "./data/230_scraping_test_all_categories_range:" + str(start) + "-" + str(end)
+	openfile = "./data/230_scraping_test_all_categories_range:" + str(start) + "-" + str(end) + ".txt"
     
 	if os.path.exists(filename):
   		os.remove(filename)
@@ -65,12 +66,16 @@ def main():
   		data = myfile.read().decode("utf-8")
 	
 	# data to parse out all types 
-	pattern = "(\*~\*[\w\W\s]+?\*~\*\n\n)"
+
+	# pattern = "(\*~\*[\w\W\s]+?\*~\*\n\n)" Alternate pattern 
+	
+	pattern = "(\*~\*ID_NUMBER\*~\*[~\*\w\W\s]+?\*~\*HITS\*~\*)"
 	matches = re.findall(pattern, data)
 
 	all_entries = []
 	headers = []
 	for i, entry in enumerate(matches):
+		print entry
 		obj = createObject(entry)
 		headers = obj.keys()
 		all_entries.append(makeLine(filename, obj))
@@ -81,6 +86,7 @@ def main():
 			for key in obj.keys():
 				val = obj[key]
 				print key + ": " + val
+			print " -- end error -- "
 			
 	writeTSV(filename, all_entries, headers)
 
