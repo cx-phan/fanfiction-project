@@ -33,7 +33,7 @@ def createObject(entry):
 	# clean up if necessary ... 
 	entry = re.sub(u"(\u201c|\u201d|\u2019)", "'", entry)
 	obj = {} 
-	pattern = "\*~\*([^a-z]+?)\*~\*([\w\s\W]+?)\*~\*[^a-z]+?\*~\*"
+	pattern = "\*~\*([^a-z]+?)\*~\*([\w\s\W]*?)\*~\*[^a-z]+?\*~\*"
 	matches = re.findall(pattern, entry)
 
 	# added delineation for explicit tag
@@ -69,7 +69,7 @@ def main():
 
 	# pattern = "(\*~\*[\w\W\s]+?\*~\*\n\n)" Alternate pattern 
 	
-	pattern = "(\*~\*ID_NUMBER\*~\*[~\*\w\W\s]+?\*~\*HITS\*~\*)"
+	pattern = "(\*~\*ID_NUMBER\*~\*[~\*\w\W\s]+?\*~\*HITS\*~\*[0-9]+\*~\*HITS\*~\*)"
 	matches = re.findall(pattern, data)
 
 	all_entries = []
