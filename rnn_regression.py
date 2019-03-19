@@ -18,7 +18,7 @@ from keras.utils import to_categorical
 
 #reads in data from small_fic_dataset.tsv
 #df = pd.read_csv("small_fic_dataset.tsv",delimiter='\t',encoding='latin-1')
-df = pd.read_csv("records-1-180.tsv",delimiter='\t',encoding='latin-1')
+df = pd.read_csv("records:1-180.tsv",delimiter='\t',encoding='latin-1')
 df.head()
 
 #visualize data
